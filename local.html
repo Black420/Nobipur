@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Tournament | Nobipur Sports Union</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-slate-50 flex flex-col min-h-screen">
+
+       <!-- রেসপন্সিভ নেভিগেশন বার (সব পেজের জন্য) -->
+<nav class="bg-white border-b sticky top-0 z-50">
+    <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+        <!-- লগো এবং টাইটেল -->
+        <a href="index.html" class="flex items-center gap-x-2 shrink-0">
+            <img src="logo.png" alt="Logo" class="h-8 w-auto md:h-10 object-contain">
+            <div>
+                <div class="font-bold text-base md:text-xl text-slate-800 whitespace-nowrap">নবীপুর ক্রীড়া সংঘ</div>
+            </div>
+        </a>
+
+        <!-- ডেস্কটপ মেনু (বড় স্ক্রিনের জন্য) -->
+        <div class="hidden md:flex items-center gap-x-7 text-sm font-medium">
+            <a href="index.html" class="hover:text-emerald-700">Home</a>
+            <a href="local.html" class="hover:text-emerald-700">Local Tournaments</a>
+            <a href="international.html" class="hover:text-emerald-700">International</a>
+            <a href="leagues.html" class="hover:text-emerald-700">Club Football</a>
+            <a href="players.html" class="hover:text-emerald-700">Our Players</a>
+            <a href="gallery.html" class="hover:text-emerald-700">Gallery</a>
+            <a href="about.html" class="hover:text-emerald-700">About</a>
+            <a href="contact.html" class="hover:text-emerald-700">Contact</a>
+        </div>
+
+        <!-- মোবাইল মেনু বাটন (হামবুর্গার আইকন) -->
+        <button id="menu-btn" class="md:hidden text-slate-700 hover:text-emerald-700 focus:outline-none p-2">
+            <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+    </div>
+
+    <!-- মোবাইল ড্রপডাউন মেনু (ডিফল্টভাবে হাইড থাকবে) -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 py-3 space-y-3 font-medium text-sm text-slate-700 shadow-lg">
+        <a href="index.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">Home</a>
+        <a href="local.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">Local Tournaments</a>
+        <a href="international.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">International</a>
+        <a href="leagues.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">Club Football</a>
+        <a href="players.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">Our Players</a>
+        <a href="gallery.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">Gallery</a>
+        <a href="about.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">About</a>
+        <a href="contact.html" class="block py-2 hover:text-emerald-700">Contact</a>
+    </div>
+</nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-screen-xl mx-auto px-4 md:px-6 py-10 w-full">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-slate-800">লোকাল টুর্নামেন্ট ড্যাশবোর্ড</h1>
+            <p class="text-slate-500 mt-2 text-sm">আমাদের রানিং টুর্নামেন্টের পয়েন্ট টেবিল, ফিক্সচার এবং প্লেয়ার স্ট্যাটস</p>
+        </div>
+
+        <!-- 1. Points Table Section -->
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm mb-10">
+            <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-table-list text-emerald-600"></i> পয়েন্ট টেবিল (Points Table)
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="text-slate-400 text-xs uppercase border-b bg-slate-50">
+                            <th class="p-3">Team Name</th>
+                            <th class="p-3 text-center">P</th>
+                            <th class="p-3 text-center">W</th>
+                            <th class="p-3 text-center">D</th>
+                            <th class="p-3 text-center">L</th>
+                            <th class="p-3 text-center">GD</th>
+                            <th class="p-3 text-center text-emerald-700 font-bold">PTS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="points-table-body" class="text-sm text-slate-700 divide-y">
+                        <tr><td colspan="7" class="p-4 text-center text-slate-400"><i class="fa-solid fa-spinner fa-spin mr-2"></i>লোডিং...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- 2. Fixtures Section -->
+            <div class="md:col-span-2 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-days text-blue-600"></i> ম্যাচ সূচি ও ফলাফল
+                </h2>
+                <div id="fixtures-container" class="space-y-4">
+                    <div class="text-center text-slate-400 py-4"><i class="fa-solid fa-spinner fa-spin mr-2"></i>লোডিং...</div>
+                </div>
+            </div>
+
+            <!-- 3. Player Stats Section -->
+            <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-trophy text-amber-500"></i> টপ স্কোরার ও কার্ড ট্র্যাকার
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-slate-400 text-xs border-b">
+                                <th class="pb-2">Player</th>
+                                <th class="pb-2 text-center"><i class="fa-solid fa-futbol text-slate-600"></i></th>
+                                <th class="pb-2 text-center"><span class="inline-block w-3 h-4 bg-amber-400 rounded-sm"></span></th>
+                                <th class="pb-2 text-center"><span class="inline-block w-3 h-4 bg-red-500 rounded-sm"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="player-stats-body" class="text-sm divide-y text-slate-700">
+                            <tr><td colspan="4" class="py-4 text-center text-slate-400"><i class="fa-solid fa-spinner fa-spin mr-2"></i>লোডিং...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-6 text-sm text-center mt-auto">© 2026 Nobipur Sports Union</footer>
+
+    <script>
+        const sheetId = '1SRRTIszGWfwyg-hOtjU4Q3JD-hEO3xQ6wmb6QjDNoHE';
+        
+        // গুগল শিট থেকে সিএসভি ডেটা রিড করার ফাংশন
+        async function fetchSheetData(tabName) {
+            const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tabName)}`;
+            const response = await fetch(url);
+            const text = await response.text();
+            return text.split('\n').map(row => row.split(',').map(cell => cell.replace(/^"(.*)"$/, '$1').trim()));
+        }
+
+        async function initDashboard() {
+            try {
+                // ১. পয়েন্ট টেবিল লোড ও PTS অনুযায়ী অটো-সর্ট
+                const pointsData = await fetchSheetData('Point Table');
+                const ptBody = document.getElementById('points-table-body');
+                let ptHtml = '';
+                
+                // প্রথম রো (হেডার) বাদ দিয়ে ডেটা ফিল্টার এবং সর্টিং (PTS অনুযায়ী)
+                let teams = pointsData.slice(1).filter(r => r[0]);
+                teams.sort((a, b) => Number(b[8] || 0) - Number(a[8] || 0)); // Column 8 হল Points
+                
+                teams.forEach(row => {
+                    ptHtml += `
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 font-semibold text-slate-800">${row[0]}</td>
+                            <td class="p-3 text-center">${row[1]||0}</td>
+                            <td class="p-3 text-center text-emerald-600">${row[2]||0}</td>
+                            <td class="p-3 text-center text-amber-600">${row[3]||0}</td>
+                            <td class="p-3 text-center text-red-500">${row[4]||0}</td>
+                            <td class="p-3 text-center font-mono">${row[7]||0}</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">${row[8]||0}</td>
+                        </tr>
+                    `;
+                });
+                ptBody.innerHTML = ptHtml || '<tr><td colspan="7" class="p-4 text-center">কোনো ডাটা পাওয়া যায়নি।</td></tr>';
+
+                // ২. ফিক্সচার লোড
+                const fixtureData = await fetchSheetData('Fixture');
+                const fixContainer = document.getElementById('fixtures-container');
+                let fixHtml = '';
+                
+                fixtureData.slice(1).filter(r => r[0]).forEach(row => {
+                    const isLive = row[4].toLowerCase() === 'live';
+                    const isFinished = row[4].toLowerCase() === 'finished';
+                    
+                    fixHtml += `
+                        <div class="border rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white hover:shadow-sm transition">
+                            <div class="text-xs text-slate-400 text-center sm:text-left">
+                                <div class="font-bold text-slate-600"><i class="fa-regular fa-calendar mr-1"></i> ${row[0]}</div>
+                                <div class="mt-1"><i class="fa-regular fa-clock mr-1"></i> ${row[1]}</div>
+                            </div>
+                            <div class="flex items-center gap-x-4 justify-center font-bold text-slate-800 text-sm sm:text-base flex-1">
+                                <span class="text-right flex-1 truncate">${row[2]}</span>
+                                <span class="px-3 py-1 bg-slate-100 rounded-xl text-xs font-black min-w-[50px] text-center">
+                                    ${isFinished ? row[5] : (isLive ? 'LIVE' : 'VS')}
+                                </span>
+                                <span class="text-left flex-1 truncate">${row[3]}</span>
+                            </div>
+                            <div>
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase rounded-md tracking-wider ${isLive ? 'bg-red-100 text-red-600 animate-pulse' : (isFinished ? 'bg-slate-100 text-slate-500' : 'bg-blue-50 text-blue-600')}">
+                                    ${row[4]}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                });
+                fixContainer.innerHTML = fixHtml || '<div class="text-center text-slate-400 py-4">কোনো ম্যাচ পাওয়া যায়নি।</div>';
+
+                // ৩. প্লেয়ার স্ট্যাটাস লোড ও গোল অনুযায়ী অটো-সর্ট
+                const playerData = await fetchSheetData('Player Stats');
+                const playerBody = document.getElementById('player-stats-body');
+                let playerHtml = '';
+                
+                let players = playerData.slice(1).filter(r => r[0]);
+                players.sort((a, b) => Number(b[2] || 0) - Number(a[2] || 0)); // Column 2 হল Goals
+                
+                players.forEach(row => {
+                    playerHtml += `
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-3">
+                                <div class="font-bold text-slate-800">${row[0]}</div>
+                                <div class="text-[10px] text-slate-400">${row[1]}</div>
+                            </td>
+                            <td class="py-3 text-center font-bold text-slate-800">${row[2]||0}</td>
+                            <td class="py-3 text-center text-amber-500 font-semibold">${row[4]||0}</td>
+                            <td class="py-3 text-center text-red-500 font-semibold">${row[5]||0}</td>
+                        </tr>
+                    `;
+                });
+                playerBody.innerHTML = playerHtml || '<tr><td colspan="4" class="py-4 text-center">কোনো ডাটা পাওয়া যায়নি।</td></tr>';
+
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+    <script>
+    // মোবাইল মেনু ওপেন/ক্লোজ করার লজিক
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            
+            // আইকন চেঞ্জ করার জন্য (টগল করার সময় বার্স থেকে ক্রস আইকন হবে)
+            const icon = menuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.className = 'fa-solid fa-bars text-xl';
+            } else {
+                icon.className = 'fa-solid fa-xmark text-xl';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
