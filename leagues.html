@@ -9,26 +9,47 @@
 </head>
 <body class="bg-slate-50 flex flex-col min-h-screen">
 
-    <!-- Navbar -->
-    <nav class="bg-white border-b sticky top-0 z-50">
-        <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-x-2 shrink-0">
-                <img src="logo.png" alt="Logo" class="h-8 w-auto md:h-10 object-contain">
-                <div>
-                    <div class="font-bold text-base md:text-xl text-slate-800 whitespace-nowrap">নবীপুর ক্রীড়া সংঘ</div>
-                </div>
-            </a>
-            <div class="hidden md:flex items-center gap-x-7 text-sm font-medium">
-                <a href="index.html" class="hover:text-emerald-700">Home</a>
-                <a href="international.html" class="hover:text-emerald-700">International</a>
-                <a href="leagues.html" class="text-emerald-700 font-bold">Club Football</a>
-                <a href="players.html" class="hover:text-emerald-700">Our Players</a>
-                <a href="gallery.html" class="hover:text-emerald-700">Gallery</a>
-                <a href="about.html" class="hover:text-emerald-700">About</a>
-                <a href="contact.html" class="hover:text-emerald-700">Contact</a>
+       <!-- রেসপন্সিভ নেভিগেশন বার (সব পেজের জন্য) -->
+<nav class="bg-white border-b sticky top-0 z-50">
+    <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+        <!-- লগো এবং টাইটেল -->
+        <a href="index.html" class="flex items-center gap-x-2 shrink-0">
+            <img src="logo.png" alt="Logo" class="h-8 w-auto md:h-10 object-contain">
+            <div>
+                <div class="font-bold text-base md:text-xl text-slate-800 whitespace-nowrap">নবীপুর ক্রীড়া সংঘ</div>
             </div>
+        </a>
+
+        <!-- ডেস্কটপ মেনু (বড় স্ক্রিনের জন্য) -->
+        <div class="hidden md:flex items-center gap-x-7 text-sm font-medium">
+            <a href="index.html" class="hover:text-emerald-700">Home</a>
+            <a href="local.html" class="hover:text-emerald-700">Local Tournaments</a>
+            <a href="international.html" class="hover:text-emerald-700">International</a>
+            <a href="leagues.html" class="hover:text-emerald-700">Club Football</a>
+            <a href="players.html" class="hover:text-emerald-700">Our Players</a>
+            <a href="gallery.html" class="hover:text-emerald-700">Gallery</a>
+            <a href="about.html" class="hover:text-emerald-700">About</a>
+            <a href="contact.html" class="hover:text-emerald-700">Contact</a>
         </div>
-    </nav>
+
+        <!-- মোবাইল মেনু বাটন (হামবুর্গার আইকন) -->
+        <button id="menu-btn" class="md:hidden text-slate-700 hover:text-emerald-700 focus:outline-none p-2">
+            <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+    </div>
+
+    <!-- মোবাইল ড্রপডাউন মেনু (ডিফল্টভাবে হাইড থাকবে) -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 py-3 space-y-3 font-medium text-sm text-slate-700 shadow-lg">
+        <a href="index.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">Home</a>
+        <a href="local.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">Local Tournaments</a>
+        <a href="international.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">International</a>
+        <a href="leagues.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">Club Football</a>
+        <a href="players.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">Our Players</a>
+        <a href="gallery.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">Gallery</a>
+        <a href="about.html" class="block py-2 hover:text-emerald-700 border-b border-slate-50">About</a>
+        <a href="contact.html" class="block py-2 hover:text-emerald-700">Contact</a>
+    </div>
+</nav>
 
     <!-- Content -->
     <main class="flex-grow max-w-screen-xl mx-auto px-6 py-12">
@@ -92,5 +113,25 @@
         }
         document.addEventListener('DOMContentLoaded', loadLeaguesData);
     </script>
+    <script>
+    // মোবাইল মেনু ওপেন/ক্লোজ করার লজিক
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            
+            // আইকন চেঞ্জ করার জন্য (টগল করার সময় বার্স থেকে ক্রস আইকন হবে)
+            const icon = menuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.className = 'fa-solid fa-bars text-xl';
+            } else {
+                icon.className = 'fa-solid fa-xmark text-xl';
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
