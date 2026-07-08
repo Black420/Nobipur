@@ -14,13 +14,11 @@
 
     <!-- Navbar -->
     <nav class="bg-white border-b sticky top-0 z-50">
-        <div class="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-x-3">
-                <div class="w-10 h-10 bg-emerald-700 text-white rounded-2xl flex items-center justify-center">
-                    <i class="fa-solid fa-futbol text-xl"></i>
-                </div>
+        <div class="max-w-screen-xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-x-2 shrink-0">
+                <img src="logo.png" alt="Logo" class="h-8 w-auto md:h-10 object-contain">
                 <div>
-                    <div class="font-bold text-xl">Nobipur Sports Union</div>
+                    <div class="font-bold text-base md:text-xl text-slate-800 whitespace-nowrap">নবীপুর ক্রীড়া সংঘ</div>
                 </div>
             </a>
 
@@ -35,17 +33,12 @@
             </div>
 
             <div class="flex items-center gap-x-3">
-                <div class="hidden md:flex bg-slate-100 rounded-3xl p-1 text-xs font-semibold">
-                    <button onclick="switchLanguage('en')" class="px-3 py-1 rounded-3xl bg-white">EN</button>
-                    <button onclick="switchLanguage('bn')" class="px-3 py-1 rounded-3xl">বাংলা</button>
-                </div>
-                <button onclick="showJoinModal()" class="px-5 py-2 bg-emerald-700 text-white text-sm font-semibold rounded-3xl">Join Club</button>
                 <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 flex items-center justify-center text-slate-700 hover:text-emerald-700"><i class="fa-solid fa-bars text-xl"></i></button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero (Center Aligned for Premium Look) -->
+    <!-- Hero -->
     <div class="bg-emerald-800 text-white">
         <div class="max-w-screen-xl mx-auto px-6 py-24 text-center">
             <div class="max-w-3xl mx-auto">
@@ -69,7 +62,7 @@
             <div class="bg-white border border-slate-200 rounded-3xl p-8">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-8">
                     <div class="text-center flex-1">
-                        <div class="w-16 h-16 mx-auto bg-emerald-700 rounded-2xl flex items-center justify-center mb-3"><i class="fa-solid fa-shield-halved text-white text-3xl"></i></div>
+                        <img src="logo.png" alt="Nobipur" class="h-16 mx-auto object-contain mb-3">
                         <div class="font-bold text-xl">Nobipur Sports Union</div>
                     </div>
                     <div class="text-center">
@@ -87,7 +80,7 @@
             </div>
         </div>
 
-        <!-- 2. BANGLADESH NATIONAL TEAM (Recent & Upcoming) -->
+        <!-- 2. BANGLADESH NATIONAL TEAM -->
         <div class="mb-12">
             <div class="mb-4"><span class="text-emerald-600 text-xs font-bold tracking-[2px]">BANGLADESH NATIONAL TEAM</span></div>
             <div class="grid md:grid-cols-2 gap-6" id="bd-matches-container">
@@ -135,52 +128,35 @@
     </div>
 
     <script>
-        // মোবাইল মেনু টগল করার ফাংশন
         function toggleMobileMenu() {
             const existingMenu = document.getElementById('mobile-menu-overlay');
-            if (existingMenu) {
-                existingMenu.remove();
-                return;
-            }
+            if (existingMenu) { existingMenu.remove(); return; }
 
             const menu = document.createElement('div');
             menu.id = 'mobile-menu-overlay';
-            menu.className = `fixed inset-0 bg-black/70 z-[200] md:hidden transition-opacity duration-300`;
+            menu.className = `fixed inset-0 bg-black/70 z-[200] md:hidden`;
             menu.innerHTML = `
                 <div class="bg-white w-4/5 max-w-xs h-full p-6 shadow-2xl flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-8 border-b pb-4">
                             <div class="font-bold text-xl text-emerald-800">Menu</div>
-                            <button class="text-3xl leading-none text-slate-500 hover:text-red-500" onclick="document.getElementById('mobile-menu-overlay').remove()">&times;</button>
+                            <button class="text-3xl text-slate-500" onclick="document.getElementById('mobile-menu-overlay').remove()">&times;</button>
                         </div>
                         <div class="flex flex-col gap-y-4 text-base font-semibold text-slate-700">
-                            <a href="local.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700 transition">Local Tournaments</a>
-                            <a href="international.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700 transition">International</a>
-                            <a href="leagues.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700 transition">Club Football</a>
-                            <a href="players.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700 transition">Our Players</a>
-                            <a href="gallery.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700 transition">Gallery</a>
-                            <a href="about.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700 transition">About</a>
-                            <a href="contact.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700 transition">Contact</a>
+                            <a href="index.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700">Home</a>
+                            <a href="international.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700">International</a>
+                            <a href="leagues.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700">Club Football</a>
+                            <a href="players.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700">Our Players</a>
+                            <a href="gallery.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700">Gallery</a>
+                            <a href="about.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700">About</a>
+                            <a href="contact.html" class="py-2 px-3 hover:bg-emerald-50 rounded-xl hover:text-emerald-700">Contact</a>
                         </div>
-                    </div>
-                    <div class="border-t pt-4 flex items-center justify-between">
-                        <div class="bg-slate-100 rounded-2xl p-1 text-xs font-semibold flex">
-                            <button onclick="switchLanguage('en')" class="px-3 py-1.5 rounded-xl bg-white shadow-sm">EN</button>
-                            <button onclick="switchLanguage('bn')" class="px-3 py-1.5 rounded-xl">বাংলা</button>
-                        </div>
-                        <button onclick="showJoinModal()" class="px-4 py-2 bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md">Join Club</button>
                     </div>
                 </div>
             `;
-            // ব্যাকড্রপ ক্লিকের মাধ্যমে মেনু বন্ধ করা
-            menu.addEventListener('click', function(e) {
-                if (e.target === menu) menu.remove();
-            });
+            menu.addEventListener('click', function(e) { if (e.target === menu) menu.remove(); });
             document.body.appendChild(menu);
         }
-
-        function switchLanguage(lang) { alert('Language switched to ' + lang); }
-        function showJoinModal() { alert('Join form coming soon'); }
 
         async function loadFootballData() {
             const uclContainer = document.getElementById('ucl-matches-container');
@@ -192,9 +168,7 @@
                 const data = await response.json();
                 
                 if (data && data.response) {
-                    let uclHTML = '';
-                    let eplHTML = '';
-                    let bdHTML = '';
+                    let uclHTML = ''; let eplHTML = ''; let bdHTML = '';
 
                     data.response.forEach(match => {
                         const comp = match.competition.toLowerCase();
@@ -225,12 +199,8 @@
                                 </div>
                             `;
                         }
-                        else if (comp.includes('champions league') || title.includes('champions league')) {
-                            uclHTML += cardTemplate;
-                        }
-                        else if (comp.includes('premier league') || title.includes('premier league')) {
-                            eplHTML += cardTemplate;
-                        }
+                        else if (comp.includes('champions league') || title.includes('champions league')) { uclHTML += cardTemplate; }
+                        else if (comp.includes('premier league') || title.includes('premier league')) { eplHTML += cardTemplate; }
                     });
 
                     if(uclHTML) uclContainer.innerHTML = uclHTML; 
@@ -241,9 +211,7 @@
 
                     if(bdHTML) bdContainer.innerHTML = bdHTML;
                 }
-            } catch (error) {
-                console.error("API Error:", error);
-            }
+            } catch (error) { console.error("API Error:", error); }
         }
 
         function showNoMatchMessage(container, message) {
