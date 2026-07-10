@@ -246,42 +246,60 @@
 async function loadLocalUpcomingMatch() {
     try {
         const sheetId = '1SRRTIszGWfwyg-hOtjU4Q3JD-hEO3xQ6wmb6QjDNoHE';
-        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Fixture`;
+        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=Fixture`;
+        
         const response = await fetch(url);
         const text = await response.text();
-        const rows = text.split('\n').map(row => row.split(',').map(cell => cell.replace(/^"(.*)"$/, '$1').trim()));
         
-        // প্রথম ম্যাচটি খুঁজে বের করা যার স্ট্যাটাস 'Upcoming' বা 'Live'
-        const activeMatch = rows.slice(1).find(row => row[4] && (row[4].toLowerCase() === 'upcoming' || row[4].toLowerCase() === 'live'));
+        const jsonData = JSON.parse(text.substring(47, text.length - 2));
+        const rows = jsonData.table.rows;
+        
+        const allMatches = rows.map(r => ({
+            date: r.c[0] ? r.c[0].v : '',
+            time: r.c[1] ? r.c[1].v : '',
+            teamA: r.c[2] ? r.c[2].v : '',
+            teamB: r.c[3] ? r.c[3].v : '',
+            status: r.c[4] ? r.c[4].v : '',
+            result: r.c[5] ? r.c[5].v : ''
+        }));
+
+        const activeMatch = allMatches.find(m => m.status && (m.status.toLowerCase() === 'upcoming' || m.status.toLowerCase() === 'live'));
         
         if(activeMatch) {
             document.getElementById('fixtures').innerHTML = `
-                <div class="mb-4"><span class="text-emerald-600 text-xs font-bold tracking-[2px]">LOCAL FIXTURE (${activeMatch[4].toUpperCase()})</span></div>
+                <div class="mb-4"><span class="text-emerald-600 text-xs font-bold tracking-[2px]">LOCAL FIXTURE (${activeMatch.status.toUpperCase()})</span></div>
                 <div class="bg-white border border-slate-200 rounded-3xl p-8">
                     <div class="flex flex-col md:flex-row items-center justify-between gap-8">
                         <div class="text-center flex-1">
                             <img src="logo.png" alt="Team A" class="h-16 mx-auto object-contain mb-3">
-                            <div class="font-bold text-xl">${activeMatch[2]}</div>
+                            <div class="font-bold text-xl">${activeMatch.teamA}</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-4xl font-black text-slate-300">${activeMatch[4].toLowerCase() === 'live' ? activeMatch[5] : 'VS'}</div>
+                            <div class="text-4xl font-black text-slate-300">${activeMatch.status.toLowerCase() === 'live' ? activeMatch.result : 'VS'}</div>
                             <div class="mt-3">
-                                <div class="font-bold text-lg">${activeMatch[0]}</div>
-                                <div class="text-emerald-600">${activeMatch[1]}</div>
+                                <div class="font-bold text-lg">${activeMatch.date}</div>
+                                <div class="text-emerald-600">${activeMatch.time}</div>
                             </div>
                         </div>
                         <div class="text-center flex-1">
                             <div class="w-16 h-16 mx-auto bg-slate-800 rounded-2xl flex items-center justify-center mb-3"><i class="fa-solid fa-shield-halved text-white text-3xl"></i></div>
-                            <div class="font-bold text-xl">${activeMatch[3]}</div>
+                            <div class="font-bold text-xl">${activeMatch.teamB}</div>
                         </div>
                     </div>
                 </div>
             `;
+        } else {
+            document.getElementById('fixtures').innerHTML = `
+                <div class="mb-4"><span class="text-emerald-600 text-xs font-bold tracking-[2px]">LOCAL FIXTURE</span></div>
+                <div class="bg-white border border-slate-200 rounded-3xl p-8 text-center text-slate-500 font-medium">
+                    <i class="fa-solid fa-circle-info mr-2 text-emerald-600"></i> বর্তমানে কোনো আসন্ন বা লাইভ ম্যাচ নেই।
+                </div>
+            `;
         }
-    } catch (e) { console.error("Local match error:", e); }
+    } catch (e) { 
+        console.error("Local match error:", e); 
+    }
 }
-// পেজ লোড হওয়ার সময় রান করান
-document.addEventListener('DOMContentLoaded', loadLocalUpcomingMatch);
 
     </script>
     <script>
